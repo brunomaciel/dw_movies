@@ -1,0 +1,82 @@
+DimTempo
+ - semestre ?
+ - ano
+
+DimProfessor
+ - cargo ?
+
+DimDepartamento
+
+DimUnidade
+
+DimAtividade
+ - pontos
+
+DimCurso
+
+DimDisciplina
+
+DimModalidadeEnsino
+
+---------------------------------------------------------------------
+
+TABELAS ELIMINADAS:
+ - arquivo
+ - areaConhecimento
+ - classeCargoEmprego
+ - grupoCargoEmprego
+ - nivelPadraoCargoEmprego
+ - situacaoRealizacao
+ - nivelOrganizacional
+
+DIMENSÕES:
+ - AtividadeAcademica: subtipos ? ok
+ - Campus 							ok
+ - DepartamentoAcademico			ok
+ - TipoAtividade: se é administrativa, academica, didatica, etc ok
+ - ServidorView 				ok
+ - Tempo 						ok
+
+FATO: 
+FatoPlanoTrabalho a partir da tabela de planos
+ - EncargoAcademicoPlanoTrabalho
+ - EncargoDidaticoPlanoTrabalho
+ 
+ - idAtividade -> tipoatividade
+ - idPlanoTrabalho -> plano -> servidor (view?)
+ - pontuação
+ -- quantidade
+
+FatoRelatorio a partir da tabela de relatorio
+ - pontuacaoPrevista
+ - pontuacaoRealizada
+
+VIEW:
+ServidorView
+ - idServidor
+ - nomeServidor
+ - formacao
+ - idcampus
+ - iddepartamentoAcademico
+
+CREATE TABLE servidorview(
+  id integer NOT NULL,
+  nomeservidor character varying(255),
+  formacao character varying (255),
+  id_campus integer NOT NULL,
+  id_departamentoacademico integer NOT NULL
+  PRIMARY KEY (id)
+);
+
+alter table servidorview
+  add foreign key (id_campus)
+  references campus (id)
+  on update no action 
+  on delete no action;
+
+alter table servidorview
+  add foreign key (id_departamentoacademico)
+  references departamentoacademico (id)
+  on update no action 
+  on delete no action;
+

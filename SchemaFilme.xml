@@ -1,0 +1,40 @@
+<Schema name="filmesSchema">
+  <Cube name="filmesCube" visible="true" cache="true" enabled="true">
+    <Table name="fatocinema" schema="public">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="idtime" highCardinality="false" name="tempo">
+      <Hierarchy visible="true" hasAll="true" primaryKey="idtime">
+        <Table name="dimtime" schema="public">
+        </Table>
+        <Level name="year" visible="true" column="Year" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="iddirector" highCardinality="false" name="diretor">
+      <Hierarchy visible="true" hasAll="true" primaryKey="iddirector">
+        <Table name="dimdirector" schema="public">
+        </Table>
+        <Level name="director_name" visible="true" column="director" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="idmovie" highCardinality="false" name="filme">
+      <Hierarchy visible="true" hasAll="true" primaryKey="idmovie">
+        <Table name="dimmovies" schema="public">
+        </Table>
+        <Level name="title" visible="true" column="title" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="genre" visible="true" column="genre" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="totalBudget" column="Budget (million $)" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="totalRevenue" column="Revenue (Millions)" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="avgAudienceRating" column="Audience Ratings %" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="avgRottenRating" column="Revenue (Millions)" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
